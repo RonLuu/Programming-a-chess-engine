@@ -101,6 +101,8 @@ extern int Sq64To120[64];
 // FUNCTIONS
 extern void AllInit();
 extern void printBitBoard(U64 bitboard);
+extern int popBit(U64 *bb);
+extern int countBit(U64 bitNum);
 // MACROS
 // A converter from file rank to square number
 #define FR2SQ(f,r) ((21 + (f)) + ((r)*10))
