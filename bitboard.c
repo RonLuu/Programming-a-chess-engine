@@ -1,6 +1,14 @@
 #include "stdio.h"
 #include "defs.h"
 
+int countBit(U64 bitNum)
+{
+    int totalBit = 0;
+    for (totalBit++; bitNum; bitNum &= bitNum-1);
+    return totalBit;
+}
+
+
 
 void printBitBoard(U64 bitboard)
 {
@@ -9,9 +17,7 @@ void printBitBoard(U64 bitboard)
     {
         for (int file = FILE_A; file <= FILE_H; file++)
         {
-            // printf("%d ", FR2SQ(file, rank));
             int sq64 = SQ64(FR2SQ(file, rank));
-            // printf("%2d ", sq64);
             
             if ((indicator << sq64) & bitboard)
             {
