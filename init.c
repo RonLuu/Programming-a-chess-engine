@@ -2,6 +2,24 @@
 
 int Sq120To64[BRD_SQ_NUM];
 int Sq64To120[64];
+U64 setMask[64];
+U64 clearMask[64];
+
+void initBitMasks()
+{
+    int index = 0;
+    for (index = 0; index < 64; index++)
+    {
+        setMask[index] = 0ULL;
+        clearMask[index] = 0ULL;
+    }
+    
+    for (index = 0; index < 64; index++)
+    {
+        setMask[index] |= (1 << index);
+        clearMask[index] |= ~(1 << index);
+    }
+}
 
 // Initialise the 120 square boards
 // Initialise the 64 square boards

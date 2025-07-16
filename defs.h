@@ -98,6 +98,9 @@ extern int Sq120To64[BRD_SQ_NUM];
 // A dictionary for 64 squares to 120 squares
 extern int Sq64To120[64];
 
+extern U64 setMask[64];
+extern U64 clearMask[64];
+
 // FUNCTIONS
 extern void AllInit();
 extern void printBitBoard(U64 bitboard);
@@ -107,4 +110,6 @@ extern int countBit(U64 bitNum);
 // A converter from file rank to square number
 #define FR2SQ(f,r) ((21 + (f)) + ((r)*10))
 #define SQ64(sq120) Sq120To64[sq120]
+#define setBit(bb, sq) (bb |= setMask[sq]);
+#define clrBit(bb, sq) (bb &= clearMask[sq]);
 #endif
