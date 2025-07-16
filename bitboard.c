@@ -53,5 +53,4 @@ void printBitBoard(U64 bitboard)
     }
 
     printf("\n");
-
 }

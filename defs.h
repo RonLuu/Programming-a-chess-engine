@@ -1,9 +1,10 @@
 #ifndef DEFS_H
 #define DEFS_H
-
-#include "stdlib.h"
 #define DEBUG
 
+#include "stdlib.h"
+
+// Define assert for easy debug
 #ifndef DEBUG
 #define ASSERT(n)
 #else
@@ -28,6 +29,7 @@ typedef unsigned long long U64;
 // All the unique pieces
 enum {EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK};
 
+// All the file and rank
 enum {FILE_A,FILE_B,FILE_C,FILE_D,FILE_E,FILE_F,FILE_G,FILE_H, FILE_NONE};
 enum {RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RANK_NONE};
 
@@ -58,7 +60,7 @@ typedef struct
     int castlePermission;
     int enPas;
     int fiftyMove;
-    U64 posKey;
+    U64 hashKey;
 } S_UNDO;
 
 
@@ -76,7 +78,7 @@ typedef struct
     int ply;
     int historyPly;
     
-    U64 posKey;
+    U64 hashKey;
 
     int numPieceOnBoard[NUM_UNIQUE]; // 12 Unique pieces and 1 empty piece
 
@@ -98,6 +100,7 @@ extern int Sq120To64[BRD_SQ_NUM];
 // A dictionary for 64 squares to 120 squares
 extern int Sq64To120[64];
 
+// Masks for bitwise operation
 extern U64 setMask[64];
 extern U64 clearMask[64];
 
@@ -106,10 +109,14 @@ extern void AllInit();
 extern void printBitBoard(U64 bitboard);
 extern int popBit(U64 *bb);
 extern int countBit(U64 bitNum);
+
 // MACROS
 // A converter from file rank to square number
 #define FR2SQ(f,r) ((21 + (f)) + ((r)*10))
+// A converter from 120 square number to 64 square number
 #define SQ64(sq120) Sq120To64[sq120]
+// Set a bit using bitmask
 #define setBit(bb, sq) (bb |= setMask[sq]);
+// Clear a bit using bitmask
 #define clrBit(bb, sq) (bb &= clearMask[sq]);
 #endif
