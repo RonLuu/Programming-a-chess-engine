@@ -23,9 +23,10 @@ typedef unsigned long long U64;
 
 #define NAME "Vice 1.0"
 // Number of square on the actual board
-#define BRD_SQ_NUM 120
+#define NUM_SQ 120
 #define MAX_MOVE 2048
 #define NUM_UNIQUE 13
+#define BRD_SIZE 64
 // All the unique pieces
 enum {EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK};
 
@@ -67,11 +68,11 @@ typedef struct
 // The state of the game
 typedef struct 
 {
-    int pieces[BRD_SQ_NUM];
+    int pieces[NUM_SQ];
     U64 pawn[3]; // 3 numbers to represent the positions of white, black and both
     int kingSq[2];
 
-    int side;
+    int turn;
     int enPas;
     int fiftyMove;
 
@@ -83,9 +84,9 @@ typedef struct
     int numPieceOnBoard[NUM_UNIQUE]; // 12 Unique pieces and 1 empty piece
 
     int castlePermission;
-    int bigPiecep[3];
-    int majPiecep[3];
-    int minPiecep[3];
+    int bigPieces[3];
+    int majPieces[3];
+    int minPieces[3];
 
     S_UNDO history[MAX_MOVE];
     // List of moves for all pieces
@@ -96,7 +97,7 @@ typedef struct
 
 // GLOBALS
 // A dictionary for 120 squares to 64 squares
-extern int Sq120To64[BRD_SQ_NUM];
+extern int Sq120To64[NUM_SQ];
 // A dictionary for 64 squares to 120 squares
 extern int Sq64To120[64];
 
@@ -104,12 +105,16 @@ extern int Sq64To120[64];
 extern U64 setMask[64];
 extern U64 clearMask[64];
 
+// Keys for hashing
+extern U64 pieceKeys[NUM_UNIQUE][NUM_SQ];
+extern U64 turnKey;
+extern U64 castleKeys[16];
 // FUNCTIONS
 extern void AllInit();
 extern void printBitBoard(U64 bitboard);
 extern int popBit(U64 *bb);
 extern int countBit(U64 bitNum);
-
+extern U64 generateHashKey(S_BOARD *boardState)
 // MACROS
 // A converter from file rank to square number
 #define FR2SQ(f,r) ((21 + (f)) + ((r)*10))
