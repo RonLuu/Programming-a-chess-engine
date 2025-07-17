@@ -70,8 +70,8 @@ typedef struct
 // The state of the game
 typedef struct 
 {
-    int pieces[NUM_SQ];
-    U64 pawn[3]; // 3 numbers to represent the positions of white, black and both
+    int square[NUM_SQ]; // All the square on the board
+    U64 pawns[3]; // 3 numbers to represent the positions of white, black and both
     int kingSq[2];
 
     int turn;
@@ -112,11 +112,20 @@ extern U64 pieceKeys[NUM_UNIQUE][NUM_SQ];
 extern U64 turnKey;
 extern U64 castleKeys[16];
 // FUNCTIONS
+
+// init.c
 extern void AllInit();
+
+// bitboard.c
 extern void printBitBoard(U64 bitboard);
 extern int popBit(U64 *bb);
 extern int countBit(U64 bitNum);
-extern U64 generateHashKey(S_BOARD *boardState)
+
+// hashkey.c
+extern U64 generateHashKey(S_BOARD *boardState);
+
+// board.c
+extern void resetBoard(S_BOARD *board);
 // MACROS
 // A converter from file rank to square number
 #define FR2SQ(f,r) ((21 + (f)) + ((r)*10))

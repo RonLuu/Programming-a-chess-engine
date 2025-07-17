@@ -10,7 +10,7 @@ U64 generateHashKey(S_BOARD *boardState)
     for (int curSq = 0; curSq < NUM_SQ; curSq++)
     {
         // Get the piece on the current square
-        int curPiece = boardState->pieces[curSq];
+        int curPiece = boardState->square[curSq];
 
         // If there IS a piece on that square and that piece is WITHIN the board
         if (curPiece != EMPTY && curPiece != NO_SQ)
