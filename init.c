@@ -1,10 +1,38 @@
 #include "defs.h"
 #include <stdio.h>
-int Sq120To64[BRD_SQ_NUM];
-int Sq64To120[64];
-U64 setMask[64];
-U64 clearMask[64];
+#include <stdlib.h>
 
+#define RAND_64 ((U64)rand() + (U64)rand() << 15 + (U64)rand() << 30 + (U64)rand() << 45 + ((U64)rand() & 0xf) << 60)
+
+int Sq120To64[NUM_SQ];
+int Sq64To120[BRD_SIZE];
+
+U64 setMask[BRD_SIZE];
+U64 clearMask[BRD_SIZE];
+
+U64 pieceKeys[NUM_UNIQUE][NUM_SQ];
+U64 turnKey;
+U64 castleKeys[16];
+
+void initHashKeys()
+{
+    int index1 = 0;
+    int index2 = 0;
+    for (index1 = 0; index1 < NUM_UNIQUE; index1++)
+    {
+        for (index2 = 0; index2 < NUM_UNIQUE; index2++)
+        {
+            pieceKeys[index1][index2] = RAND_64;
+        }
+    }
+
+    turnKey = RAND_64;
+
+    for (index1 = 0; index1 < 16; index1++)
+    {
+        castleKeys[16] = RAND_64;
+    }
+}
 // Initialise a set mask
 // Initialise a clear mask
 void initBitMasks()
@@ -25,7 +53,7 @@ void initBitMasks()
 
 // Initialise the 120 square boards converter
 // Initialise the 64  square boards converter
-void InitSq120And64()
+void initSq120And64()
 {
     int index = 0;
     int file = FILE_A;
@@ -34,7 +62,7 @@ void InitSq120And64()
     int sq64 = 0;
 
     // Fill all the squares to 65
-    for (index = 0; index < BRD_SQ_NUM; index++)
+    for (index = 0; index < NUM_SQ; index++)
     {
         Sq120To64[index] = 65;
     }
@@ -58,9 +86,11 @@ void InitSq120And64()
     }
 }
 
-void AllInit()
+void allInit()
 {
-    InitSq120And64();
+    initSq120And64();
+    initBitMasks();
+    initHashKeys();
 }
 
 // Helper function
@@ -103,7 +133,7 @@ void printBits(unsigned long long num)
 void printSquare()
 {
     printf("The 120 squares converters\n");
-    for (int i = 0; i < BRD_SQ_NUM; i++)
+    for (int i = 0; i < NUM_SQ; i++)
     {
         if (i % 10 == 0)
         {
