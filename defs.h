@@ -1,3 +1,5 @@
+// A file to contain all the necessary constants, definitions, functions
+
 #ifndef DEFS_H
 #define DEFS_H
 #define DEBUG

@@ -1,3 +1,5 @@
+// A file to handle the hashing logic
+
 #include "defs.h"
 
 U64 generateHashKey(S_BOARD *boardState)

@@ -1,3 +1,5 @@
+// A file to handle the initlisation of the game
+
 #include "defs.h"
 #include <stdio.h>
 #include <stdlib.h>

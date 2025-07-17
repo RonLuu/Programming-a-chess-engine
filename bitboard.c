@@ -1,3 +1,5 @@
+// A file to handle the bitwise logic
+
 #include "stdio.h"
 #include "defs.h"
 
