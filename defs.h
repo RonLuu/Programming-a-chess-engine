@@ -29,6 +29,7 @@ typedef unsigned long long U64;
 #define MAX_MOVE 2048
 #define NUM_UNIQUE 13
 #define BRD_SIZE 64
+#define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 // All the unique pieces
 enum {EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK};
 
