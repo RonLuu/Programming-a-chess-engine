@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define RAND_64 ((U64)rand() + (U64)rand() << 15 + (U64)rand() << 30 + (U64)rand() << 45 + ((U64)rand() & 0xf) << 60)
+#define RAND_64 ((U64)rand() | (U64)rand() << 15 | (U64)rand() << 30 | (U64)rand() << 45 | ((U64)rand() & 0xf) << 60)
 
 int Sq120To64[NUM_SQ];
 int Sq64To120[BRD_SIZE];
@@ -22,7 +22,7 @@ void initHashKeys()
     int index2 = 0;
     for (index1 = 0; index1 < NUM_UNIQUE; index1++)
     {
-        for (index2 = 0; index2 < NUM_UNIQUE; index2++)
+        for (index2 = 0; index2 < NUM_SQ; index2++)
         {
             pieceKeys[index1][index2] = RAND_64;
         }
@@ -66,13 +66,13 @@ void initSq120And64()
     // Fill all the squares to 65
     for (index = 0; index < NUM_SQ; index++)
     {
-        Sq120To64[index] = 65;
+        Sq120To64[index] = BRD_SIZE + 1;
     }
     
     // Fill all the squares to 120
-    for (index = 0; index < 64; index++)
+    for (index = 0; index < BRD_SIZE; index++)
     {
-        Sq64To120[index] = 120;
+        Sq64To120[index] = NUM_SQ;
     }
 
     // Fill in the conversion values
