@@ -161,3 +161,35 @@ void resetBoard(S_BOARD *board)
 
     board->hashKey = 0LL;
 }
+void printBoard(const S_BOARD *board)
+{
+    int sq, file, rank, pieceIndex;
+    printf("\nGame Board:\n");
+    for (rank = RANK_8; rank >= RANK_1; rank--)
+    {
+        printf("%d ", rank+1);
+        for (file = FILE_A; file <= FILE_H; file++)
+        {
+            sq = FR2SQ(file, rank);
+            pieceIndex = board->square[sq];
+            printf("%3c", pieceChar[pieceIndex]);
+        }
+        printf("\n");
+    }
+
+    printf("\n   ");
+    for (file = FILE_A; file <= FILE_H; file++)
+    {
+        printf("%3c", 'a' + file);
+    }
+    printf("\n");
+    printf("Side: %c\n", sideChar[board->turn]);
+    printf("EnPas: %d\n", board->enPas);
+    printf("Castle: %c%c%c%c\n", 
+        board->castlePermission & WKCA ? 'K' : '-', 
+        board->castlePermission & WQCA ? 'Q' : '-', 
+        board->castlePermission & BKCA ? 'k' : '-', 
+        board->castlePermission & BQCA ? 'q' : '-');
+
+    printf("HashKey: %llX", board->hashKey);
+}
