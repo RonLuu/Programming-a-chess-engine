@@ -3,6 +3,29 @@
 #include "stdio.h"
 #include "defs.h"
 
+void updateListMaterial(S_BOARD *board)
+{
+    int piece, sq, index, colour;
+    for (index = 0; index < NUM_SQ; index++)
+    {
+        piece = board->square[index];
+        if (piece != OFFBOARD &&  piece != EMPTY) 
+        {
+            colour = pieceCol[piece];
+
+            if (pieceBig[piece]) board->bigPieces[colour]++;
+            if (pieceMaj[piece]) board->majPieces[colour]++;
+            if (pieceMin[piece]) board->minPieces[colour]++;
+
+            board->material[colour] += pieceVal[piece];
+
+            board->pieceList[piece][board->numPieceOnBoard[piece]++] = index; 
+
+            if (piece==wK) board->kingSq[WHITE] = index;
+            if (piece==bK) board->kingSq[BLACK] = index;
+        }
+    }
+}
 int parseFen(char *fen, S_BOARD *board)
 {
     ASSERT(fen != NULL);
@@ -90,10 +113,10 @@ int parseFen(char *fen, S_BOARD *board)
 
         switch (*fen)
         {
-            case 'K': board->turn |= WKCA; break;
-            case 'k': board->turn |= BKCA; break;
-            case 'Q': board->turn |= WQCA; break;
-            case 'q': board->turn |= BQCA; break;
+            case 'K': board->castlePermission |= WKCA; break;
+            case 'k': board->castlePermission |= BKCA; break;
+            case 'Q': board->castlePermission |= WQCA; break;
+            case 'q': board->castlePermission |= BQCA; break;
             default:
                 printf("FEN error\n");
                 return -1;
@@ -113,7 +136,7 @@ int parseFen(char *fen, S_BOARD *board)
         ASSERT(RANK_1 <= rank && rank <= RANK_8);
 
         board->enPas = FR2SQ(file, rank);
-    }
+    } 
     board->hashKey = generateHashKey(board);
 
     return 0;

@@ -88,9 +88,10 @@ typedef struct
     int numPieceOnBoard[NUM_UNIQUE]; // 12 Unique pieces and 1 empty piece
 
     int castlePermission;
-    int bigPieces[3];
-    int majPieces[3];
-    int minPieces[3];
+    int bigPieces[2];
+    int majPieces[2];
+    int minPieces[2];
+    int material[2];
 
     S_UNDO history[MAX_MOVE];
     // List of moves for all pieces
@@ -121,6 +122,15 @@ extern char sideChar[];
 extern char rankChar[];
 extern char fileChar[];
 
+extern int pieceBig[13];
+extern int pieceMaj[13];
+extern int pieceMin[13];
+extern int pieceVal[13];
+extern int pieceCol[13];
+
+extern int filesBrd[NUM_SQ];
+extern int ranksBrd[NUM_SQ];
+
 // FUNCTIONS
 // init.c
 extern void allInit();
@@ -137,6 +147,8 @@ extern U64 generateHashKey(S_BOARD *boardState);
 extern void resetBoard(S_BOARD *board);
 extern int parseFen(char *fen, S_BOARD *board);
 extern void printBoard(const S_BOARD *board);
+extern void updateListMaterial(S_BOARD *board);
+
 // MACROS
 // A converter from file rank to square number
 #define FR2SQ(f,r) ((21 + (f)) + ((r)*10))
