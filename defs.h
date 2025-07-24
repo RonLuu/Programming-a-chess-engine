@@ -30,6 +30,7 @@ typedef unsigned long long U64;
 #define NUM_UNIQUE 13
 #define BRD_SIZE 64
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
 // All the unique pieces
 enum {EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK};
 
@@ -75,9 +76,9 @@ typedef struct
     U64 pawns[3]; // 3 numbers to represent the positions of white, black and both
     int kingSq[2];
 
-    int turn;
-    int enPas;
-    int fiftyMove;
+    int turn; // Whose turn it is
+    int enPas;// The en Passant square
+    int fiftyMove; // 
 
     int ply;
     int historyPly;
@@ -99,6 +100,7 @@ typedef struct
 
 
 // GLOBALS
+
 // A dictionary for 120 squares to 64 squares
 extern int Sq120To64[NUM_SQ];
 // A dictionary for 64 squares to 120 squares
@@ -112,10 +114,16 @@ extern U64 clearMask[64];
 extern U64 pieceKeys[NUM_UNIQUE][NUM_SQ];
 extern U64 turnKey;
 extern U64 castleKeys[16];
-// FUNCTIONS
 
+// Array for the piece's literal
+extern char pieceChar[];
+extern char sideChar[];
+extern char rankChar[];
+extern char fileChar[];
+
+// FUNCTIONS
 // init.c
-extern void AllInit();
+extern void allInit();
 
 // bitboard.c
 extern void printBitBoard(U64 bitboard);
@@ -127,6 +135,8 @@ extern U64 generateHashKey(S_BOARD *boardState);
 
 // board.c
 extern void resetBoard(S_BOARD *board);
+extern int parseFen(char *fen, S_BOARD *board);
+extern void printBoard(const S_BOARD *board);
 // MACROS
 // A converter from file rank to square number
 #define FR2SQ(f,r) ((21 + (f)) + ((r)*10))

@@ -1,6 +1,7 @@
 // A file to handle the hashing logic
 
 #include "defs.h"
+#include "stdio.h"
 
 U64 generateHashKey(S_BOARD *boardState)
 {
@@ -13,7 +14,7 @@ U64 generateHashKey(S_BOARD *boardState)
         int curPiece = boardState->square[curSq];
 
         // If there IS a piece on that square and that piece is WITHIN the board
-        if (curPiece != EMPTY && curPiece != NO_SQ)
+        if (curPiece != EMPTY && curPiece != NO_SQ && curPiece != OFFBOARD)
         {
             // Check if that piece is a valid piece
             ASSERT(wP <= curPiece && curPiece <= bK);

@@ -114,7 +114,6 @@ int parseFen(char *fen, S_BOARD *board)
 
         board->enPas = FR2SQ(file, rank);
     }
-
     board->hashKey = generateHashKey(board);
 
     return 0;
@@ -130,7 +129,7 @@ void resetBoard(S_BOARD *board)
     }
 
     // Set the squares IN THE BOARD to be EMPTY 
-    for (curSq; curSq < BRD_SIZE; curSq++)
+    for (curSq = 0; curSq < BRD_SIZE; curSq++)
     {
         board->square[Sq64To120[curSq]] = EMPTY;
     }
@@ -177,12 +176,12 @@ void printBoard(const S_BOARD *board)
         printf("\n");
     }
 
-    printf("\n   ");
+    printf("  ");
     for (file = FILE_A; file <= FILE_H; file++)
     {
         printf("%3c", 'a' + file);
     }
-    printf("\n");
+    printf("\n\n");
     printf("Side: %c\n", sideChar[board->turn]);
     printf("EnPas: %d\n", board->enPas);
     printf("Castle: %c%c%c%c\n", 
@@ -191,5 +190,5 @@ void printBoard(const S_BOARD *board)
         board->castlePermission & BKCA ? 'k' : '-', 
         board->castlePermission & BQCA ? 'q' : '-');
 
-    printf("HashKey: %llX", board->hashKey);
+    printf("HashKey: %llX\n", board->hashKey);
 }

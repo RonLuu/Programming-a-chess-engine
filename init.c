@@ -20,10 +20,14 @@ void initHashKeys()
 {
     int index1 = 0;
     int index2 = 0;
+
+    // For each unique piece
     for (index1 = 0; index1 < NUM_UNIQUE; index1++)
     {
+        // For each square 
         for (index2 = 0; index2 < NUM_SQ; index2++)
         {
+            // Need a hash key to know if a piece is on that square
             pieceKeys[index1][index2] = RAND_64;
         }
     }
@@ -32,7 +36,7 @@ void initHashKeys()
 
     for (index1 = 0; index1 < 16; index1++)
     {
-        castleKeys[16] = RAND_64;
+        castleKeys[index1] = RAND_64;
     }
 }
 // Initialise a set mask
@@ -63,18 +67,12 @@ void initSq120And64()
     int sq120 = A1;
     int sq64 = 0;
 
-    // Fill all the squares to 65
+    // Fill all the outer squares to 65
     for (index = 0; index < NUM_SQ; index++)
     {
         Sq120To64[index] = BRD_SIZE + 1;
     }
     
-    // Fill all the squares to 120
-    for (index = 0; index < BRD_SIZE; index++)
-    {
-        Sq64To120[index] = NUM_SQ;
-    }
-
     // Fill in the conversion values
     for (rank = RANK_1; rank <= RANK_8; rank++)
     {

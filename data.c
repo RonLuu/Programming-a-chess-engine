@@ -1,3 +1,5 @@
+// Arrays to store characters
+
 char pieceChar[] = ".PNBRQKpnbrqk";
 char sideChar[] = "wb-";
 char rankChar[] = "12345678";
