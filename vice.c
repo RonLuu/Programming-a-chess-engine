@@ -10,9 +10,18 @@ int main()
 {
     // Initialise the necessity
     allInit();
-    // S_BOARD board[1];
+    S_BOARD board[1];
 
-    // parseFen(START_FEN, board);
-    // printBoard(board);
+    parseFen(START_FEN, board);
+    // updateListMaterial(board);
+
+    
+    printBoard(board);
+    parseFen(FEN1, board);
+    printBoard(board);
+    parseFen(FEN2, board);
+    printBoard(board);
+    parseFen(FEN3, board);
+    printBoard(board);
     return 0;
 }
