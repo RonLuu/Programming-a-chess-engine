@@ -134,6 +134,7 @@ extern int ranksBrd[NUM_SQ];
 // FUNCTIONS
 // init.c
 extern void allInit();
+extern void initFileRankBrd();
 
 // bitboard.c
 extern void printBitBoard(U64 bitboard);

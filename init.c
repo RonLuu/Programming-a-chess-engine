@@ -16,6 +16,31 @@ U64 pieceKeys[NUM_UNIQUE][NUM_SQ];
 U64 turnKey;
 U64 castleKeys[16];
 
+int filesBrd[NUM_SQ];
+int ranksBrd[NUM_SQ];
+
+void initFileRankBrd()
+{
+    int index = 0;
+    int file = FILE_A;
+    int rank = RANK_1;
+    int sq64 = 0;
+    for (index = 0; index < NUM_SQ; index ++)
+    {
+        sq64 = Sq120To64[index]; 
+        if (sq64 == BRD_SIZE + 1)
+        {
+            filesBrd[index] = OFFBOARD;
+            ranksBrd[index] = OFFBOARD;
+        }
+        else
+        {
+            filesBrd[index] = file + sq64%8;
+            ranksBrd[index] = file + sq64/8;
+        }
+    }
+}
+
 void initHashKeys()
 {
     int index1 = 0;
@@ -91,6 +116,7 @@ void allInit()
     initSq120And64();
     initBitMasks();
     initHashKeys();
+    initFileRankBrd();
 }
 
 // Helper function
