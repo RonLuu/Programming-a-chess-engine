@@ -29,6 +29,7 @@ typedef unsigned long long U64;
 #define MAX_MOVE 2048
 #define NUM_UNIQUE 13
 #define BRD_SIZE 64
+#define MAX_PER_PIECE 10
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 // All the unique pieces
@@ -73,7 +74,7 @@ typedef struct
 typedef struct 
 {
     int square[NUM_SQ]; // All the square on the board
-    U64 pawns[3]; // 3 numbers to represent the positions of white, black and both
+    U64 pawnPos[3]; // 3 numbers to represent the positions of white, black and both
     int kingSq[2];
 
     int turn; // Whose turn it is
@@ -85,17 +86,16 @@ typedef struct
     
     U64 hashKey;
 
-    int numPieceOnBoard[NUM_UNIQUE]; // 12 Unique pieces and 1 empty piece
+    int numPieceOnBoard[NUM_UNIQUE]; // Number per piece on the board
 
     int castlePermission;
     int bigPieces[2];
     int majPieces[2];
     int minPieces[2];
-    int material[2];
+    int materialPoints[2];
 
     S_UNDO history[MAX_MOVE];
-    // List of moves for all pieces
-    int pieceList[NUM_UNIQUE][10];
+    int piecePos[NUM_UNIQUE][MAX_PER_PIECE];
 
 } S_BOARD;
 
