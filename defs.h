@@ -107,6 +107,8 @@ extern int Sq120To64[NUM_SQ];
 // A dictionary for 64 squares to 120 squares
 extern int Sq64To120[64];
 
+// init.c
+
 // Masks for bitwise operation
 extern U64 setMask[64];
 extern U64 clearMask[64];
@@ -115,7 +117,10 @@ extern U64 clearMask[64];
 extern U64 pieceKeys[NUM_UNIQUE][NUM_SQ];
 extern U64 turnKey;
 extern U64 castleKeys[16];
+extern int filesBrd[NUM_SQ];
+extern int ranksBrd[NUM_SQ];
 
+// Data.c
 // Array for the piece's literal
 extern char pieceChar[];
 extern char sideChar[];
@@ -128,8 +133,11 @@ extern int pieceMin[13];
 extern int pieceVal[13];
 extern int pieceCol[13];
 
-extern int filesBrd[NUM_SQ];
-extern int ranksBrd[NUM_SQ];
+extern int pieceKnight[13];
+extern int pieceKing[13];
+extern int pieceRookQueen[13];
+extern int pieceBishopQueen[13];
+
 
 // FUNCTIONS
 // init.c
@@ -150,13 +158,21 @@ extern int parseFen(char *fen, S_BOARD *board);
 extern void printBoard(const S_BOARD *board);
 extern void updateListMaterial(S_BOARD *board);
 
+// attack.c
+extern int sqAttacked(const int sq, const int side, const S_BOARD *board);
 // MACROS
 // A converter from file rank to square number
 #define FR2SQ(f,r) ((21 + (f)) + ((r)*10))
 // A converter from 120 square number to 64 square number
 #define SQ64(sq120) Sq120To64[sq120]
 // Set a bit using bitmask
-#define setBit(bb, sq) (bb |= setMask[sq]);
+#define setBit(bb, sq) (bb |= setMask[sq])
 // Clear a bit using bitmask
-#define clrBit(bb, sq) (bb &= clearMask[sq]);
+#define clrBit(bb, sq) (bb &= clearMask[sq])
+// Check if a piece is a certain piece
+#define isBQ(p) (pieceBishopQueen[p])
+#define isRQ(p) (pieceRookQueen[p])
+#define isKn(p) (pieceKnight[p])
+#define isKi(p) (pieceKing[p])
+
 #endif
